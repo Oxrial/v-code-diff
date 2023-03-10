@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue-demi'
+import { computed, onMounted } from 'vue-demi'
 import { createSplitDiff, createUnifiedDiff } from './utils'
 import UnifiedViewer from './unified/UnifiedViewer.vue'
 import SplitViewer from './split/SplitViewer.vue'
 
 import './style.scss'
-import 'highlight.js/scss/vs.scss'
 
 interface Props {
+  theme: string
   newString: string
   oldString: string
   language?: string
@@ -21,6 +21,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  theme: '',
   language: 'plaintext',
   context: 10,
   diffStyle: 'word',
@@ -30,7 +31,25 @@ const props = withDefaults(defineProps<Props>(), {
   maxHeight: undefined,
   filename: undefined,
 })
-
+// onMounted(() => {
+//   switch (props.theme) {
+//     case 'vs':
+//       import('highlight.js/scss/vs.scss')
+//       break
+//     case 'monokai-sublime':
+//       import('highlight.js/scss/monokai-sublime.scss')
+//       break
+//     case 'synth-midnight-terminal-dark':
+//       import('highlight.js/scss/base16/synth-midnight-terminal-dark.scss')
+//       break
+//     case 'tomorrow-night':
+//       import('highlight.js/scss/base16/tomorrow-night.scss')
+//   }
+// })
+const importTheme = (func: Function): any => func()
+defineExpose({
+  importTheme,
+})
 const isUnifiedViewer = computed(() => props.outputFormat === 'line-by-line')
 
 const oldString = computed(() => {
@@ -65,6 +84,4 @@ const diffChange = computed(() =>
   </div>
 </template>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

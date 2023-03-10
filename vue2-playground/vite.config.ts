@@ -8,6 +8,8 @@ export const viteVue2Config = defineConfig({
   plugins: [vue2(), ...defaultPlugins, ScriptSetup({ reactivityTransform: true })],
   server: {
     port: 2000,
+    open: true,
+    host: '0.0.0.0',
   },
   resolve: {
     alias: {

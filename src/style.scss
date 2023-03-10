@@ -14,7 +14,7 @@
   overflow-y: auto;
 
   .file-header {
-    background-color: var(--color-canvas-subtle);
+    background-color: var(--color-canvas-default);
     border-bottom: 1px solid var(--color-border-default);
     padding: 8px 16px;
     font-size: 12px;
@@ -67,12 +67,12 @@
     }
     .blob-num-deletion {
       color: var(--color-diff-blob-deletion-num-text);
-      background-color: var(--color-diff-blob-deletion-num-bg);
+      background-color: #ffd7d596;
       border-color: var(--color-danger-emphasis);
     }
     .blob-num-addition {
       color: var(--color-diff-blob-addition-num-text);
-      background-color: var(--color-diff-blob-addition-num-bg);
+      background-color: #ccffd8a3;
       border-color: var(--color-success-emphasis);
     }
 
@@ -86,14 +86,14 @@
         display: table-cell;
         overflow: visible;
         font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-        font-size: 12px;
+        font-size: 16px;
         color: var(--color-fg-default);
         word-wrap: anywhere;
         white-space: pre-wrap;
       }
     }
     .blob-code-deletion {
-      background-color: var(--color-diff-blob-deletion-line-bg);
+      background-color: #765c59;
       outline: 1px dashed transparent;
 
       .x {
@@ -102,7 +102,7 @@
       }
     }
     .blob-code-addition {
-      background-color: var(--color-diff-blob-addition-line-bg);
+      background-color: #476652;
       outline: 1px dotted transparent;
 
       .x {
@@ -143,7 +143,7 @@
 
   .empty-cell {
     cursor: default;
-    background-color: var(--color-neutral-subtle);
+    background-color: #9ca0a580;
     border-right-color: var(--color-border-muted);
   }
 }
