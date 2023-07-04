@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue-demi'
-import { createSplitDiff, createUnifiedDiff } from './utils'
-import UnifiedViewer from './unified/UnifiedViewer.vue'
-import SplitViewer from './split/SplitViewer.vue'
+import { computed, ref, watch, onMounted } from "vue-demi";
+import { createSplitDiff, createUnifiedDiff } from "./utils";
+import UnifiedViewer from "./unified/UnifiedViewer.vue";
+import SplitViewer from "./split/SplitViewer.vue";
 
 import "./style.scss";
 
 interface Props {
-  newString: string
-  oldString: string
-  language?: string
-  context?: number
-  diffStyle?: 'word' | 'char'
-  outputFormat?: 'line-by-line' | 'side-by-side'
-  trim?: boolean
-  noDiffLineFeed?: boolean
-  maxHeight?: string
-  filename?: string
+  newString: string;
+  oldString: string;
+  language?: string;
+  context?: number;
+  diffStyle?: "word" | "char";
+  outputFormat?: "line-by-line" | "side-by-side";
+  trim?: boolean;
+  noDiffLineFeed?: boolean;
+  maxHeight?: string;
+  filename?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -29,8 +29,8 @@ const props = withDefaults(defineProps<Props>(), {
   maxHeight: undefined,
   filename: undefined,
 });
-onMounted(() => {
-  importTheme();
+onMounted(
+  () => importTheme()
   //   switch (props.theme) {
   //     case 'vs':
   //       import('highlight.js/scss/vs.scss')
@@ -44,7 +44,7 @@ onMounted(() => {
   //     case 'tomorrow-night':
   //       import('highlight.js/scss/base16/tomorrow-night.scss')
   //   }
-});
+);
 const importTheme = (func: Function | null = null): any =>
   (func && func()) ||
   (function () {
@@ -54,27 +54,43 @@ defineExpose({ importTheme });
 const isUnifiedViewer = computed(() => props.outputFormat === "line-by-line");
 
 const oldString = computed(() => {
-  let value = props.oldString || ''
-  value = props.trim ? value.trim() : value
-  value = props.noDiffLineFeed ? value.replace(/(\r\n)/g, '\n') : value
-  return value
-})
+  let value = props.oldString || "";
+  value = props.trim ? value.trim() : value;
+  value = props.noDiffLineFeed ? value.replace(/(\r\n)/g, "\n") : value;
+  return value;
+});
 const newString = computed(() => {
-  let value = props.newString || ''
-  value = props.trim ? value.trim() : value
-  value = props.noDiffLineFeed ? value.replace(/(\r\n)/g, '\n') : value
-  return value
-})
+  let value = props.newString || "";
+  value = props.trim ? value.trim() : value;
+  value = props.noDiffLineFeed ? value.replace(/(\r\n)/g, "\n") : value;
+  return value;
+});
 
 const raw = computed(() =>
   isUnifiedViewer.value
-    ? createUnifiedDiff(oldString.value, newString.value, props.language, props.diffStyle, props.context)
-    : createSplitDiff(oldString.value, newString.value, props.language, props.diffStyle, props.context),
-)
-const diffChange = ref(raw.value)
-watch(() => props, () => {
-  diffChange.value = raw.value
-}, { deep: true })
+    ? createUnifiedDiff(
+        oldString.value,
+        newString.value,
+        props.language,
+        props.diffStyle,
+        props.context
+      )
+    : createSplitDiff(
+        oldString.value,
+        newString.value,
+        props.language,
+        props.diffStyle,
+        props.context
+      )
+);
+const diffChange = ref(raw.value);
+watch(
+  () => props,
+  () => {
+    diffChange.value = raw.value;
+  },
+  { deep: true }
+);
 </script>
 
 <template>
