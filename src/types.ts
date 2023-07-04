@@ -5,36 +5,53 @@ export const enum DiffType {
   EMPTY = 'empty',
 }
 
+export interface UnifiedLineUnchanges {
+  lines: UnifiedLineChange[]
+  fold: boolean
+}
+
+export interface SplitLineUnchanges {
+  lines: SplitLineChange[]
+  fold: boolean
+}
+
 export interface DiffLine {
   type: DiffType
   code?: string
   num?: number
 }
 
-export interface SplitDiffLine {
+export interface SplitLineChange {
   fold?: boolean
   left: DiffLine
   right: DiffLine
+  hide?: boolean
+  hideIndex?: number
 }
 
-export interface UnifiedLine {
+export interface UnifiedLineChange {
   fold?: boolean
   type: DiffType
   code: string
   delNum?: number
   addNum?: number
+  hide?: boolean
+  hideIndex?: number
 }
 
 export interface DiffStat {
   additionsNum: number
   deletionsNum: number
 }
+
 export interface SplitViewerChange {
-  changes: SplitDiffLine[]
+  changes: SplitLineChange[]
+  collector: SplitLineUnchanges[]
   stat: DiffStat
 }
 
 export interface UnifiedViewerChange {
-  changes: UnifiedLine[]
+  changes: UnifiedLineChange[]
+  collector: UnifiedLineUnchanges[]
   stat: DiffStat
 }

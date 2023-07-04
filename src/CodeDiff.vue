@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue-demi";
-import { createSplitDiff, createUnifiedDiff } from "./utils";
-import UnifiedViewer from "./unified/UnifiedViewer.vue";
-import SplitViewer from "./split/SplitViewer.vue";
+import { computed, ref, watch } from 'vue-demi'
+import { createSplitDiff, createUnifiedDiff } from './utils'
+import UnifiedViewer from './unified/UnifiedViewer.vue'
+import SplitViewer from './split/SplitViewer.vue'
 
 import "./style.scss";
 
 interface Props {
-  theme: string;
-  newString: string;
-  oldString: string;
-  language?: string;
-  context?: number;
-  diffStyle?: "word" | "char";
-  outputFormat?: "line-by-line" | "side-by-side";
-  trim?: boolean;
-  noDiffLineFeed?: boolean;
-  maxHeight?: number;
-  filename?: string;
+  newString: string
+  oldString: string
+  language?: string
+  context?: number
+  diffStyle?: 'word' | 'char'
+  outputFormat?: 'line-by-line' | 'side-by-side'
+  trim?: boolean
+  noDiffLineFeed?: boolean
+  maxHeight?: string
+  filename?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  theme: "",
   language: "plaintext",
   context: 10,
   diffStyle: "word",
@@ -56,31 +54,27 @@ defineExpose({ importTheme });
 const isUnifiedViewer = computed(() => props.outputFormat === "line-by-line");
 
 const oldString = computed(() => {
-  const value = props.trim ? props.oldString.trim() : props.oldString;
-  return props.noDiffLineFeed ? value.replace(/(\r\n)/g, "\n") : value;
-});
+  let value = props.oldString || ''
+  value = props.trim ? value.trim() : value
+  value = props.noDiffLineFeed ? value.replace(/(\r\n)/g, '\n') : value
+  return value
+})
 const newString = computed(() => {
-  const value = props.trim ? props.newString.trim() : props.newString;
-  return props.noDiffLineFeed ? value.replace(/(\r\n)/g, "\n") : value;
-});
+  let value = props.newString || ''
+  value = props.trim ? value.trim() : value
+  value = props.noDiffLineFeed ? value.replace(/(\r\n)/g, '\n') : value
+  return value
+})
 
-const diffChange = computed(() =>
+const raw = computed(() =>
   isUnifiedViewer.value
-    ? createUnifiedDiff(
-        oldString.value,
-        newString.value,
-        props.language,
-        props.diffStyle,
-        props.context
-      )
-    : createSplitDiff(
-        oldString.value,
-        newString.value,
-        props.language,
-        props.diffStyle,
-        props.context
-      )
-);
+    ? createUnifiedDiff(oldString.value, newString.value, props.language, props.diffStyle, props.context)
+    : createSplitDiff(oldString.value, newString.value, props.language, props.diffStyle, props.context),
+)
+const diffChange = ref(raw.value)
+watch(() => props, () => {
+  diffChange.value = raw.value
+}, { deep: true })
 </script>
 
 <template>
@@ -98,8 +92,8 @@ const diffChange = computed(() =>
         </span>
       </div>
     </div>
-    <UnifiedViewer v-if="isUnifiedViewer" :diff-change="diffChange.changes" />
-    <SplitViewer v-else :diff-change="diffChange.changes" />
+    <UnifiedViewer v-if="isUnifiedViewer" :diff-change="diffChange" />
+    <SplitViewer v-else :diff-change="diffChange" />
   </div>
 </template>
 
