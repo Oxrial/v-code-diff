@@ -1,0 +1,50 @@
+.code-diff-view {
+  margin: unset;
+  background-color: #242424;
+  .blob-code {
+    cursor: text;
+  }
+  .blob-code-inner * {
+    font-stretch: expanded;
+    font-family: Consolas;
+  }
+  .file-header {
+    background-color: inherit;
+    border-bottom: 1px solid #91958940;
+  }
+  .blob-code-inner {
+    span {
+      color: #ce9178;
+    }
+    span.hljs-attr {
+      color: #3dc9b0;
+    }
+    span.hljs-bullet {
+      color: #d4d4d4;
+    }
+  }
+  .blob-num-deletion {
+    background-color: #5a3737;
+    color: #728091;
+  }
+  .blob-code-deletion {
+    background-color: #4d1e1e;
+    .x {
+      background-color: #5c3838;
+      color: inherit;
+    }
+  }
+  .blob-num-addition {
+    background-color: #9bb95557;
+  }
+  .blob-code-addition {
+    background-color: #9bb95533;
+    .x {
+      background-color: #4d5635;
+      color: inherit;
+    }
+  }
+  .file-diff-split .blob-code + .blob-num {
+    border-left: 1px solid #91958940;
+  }
+}
