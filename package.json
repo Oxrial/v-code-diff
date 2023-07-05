@@ -1,7 +1,7 @@
 {
   "name": "v-code-diff-oxr",
   "version": "1.0.0",
-  "description": "A based from Shimada666/v-code-diff@1.5.1  去除默认导入主题 添加主题导入 api importTheme(function(){import('XXXX')} || null) 默认导入 theme monaco， 使用 importTheme 后覆盖，支持 highlight 的主题包",
+  "description": "A based from Shimada666/v-code-diff@1.5.1  去除默认导入主题 添加主题导入 api importTheme(function(){import('XXXX')} || null) 默认导入适配的yaml theme monaco， 使用 importTheme 后覆盖，支持 highlight 的主题包",
   "main": "dist/index.cjs",
   "module": "dist/index.es.js",
   "types": "./types/index.d.ts",
