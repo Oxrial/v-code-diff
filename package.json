@@ -1,7 +1,7 @@
 {
   "name": "v-code-diff-oxr",
   "version": "1.0.0",
-  "description": "添加主题导入api importTheme(function(){import('XXXX')} || null)，默认导入 theme monaco，支持highlight的主题包，例import('highlight.js/scss/monokai-sublime.scss')",
+  "description": "A based from Shimada666/v-code-diff@1.5.1  去除默认导入主题 添加主题导入 api importTheme(function(){import('XXXX')} || null) 默认导入 theme monaco， 使用 importTheme 后覆盖，支持 highlight 的主题包",
   "main": "dist/index.cjs",
   "module": "dist/index.es.js",
   "types": "./types/index.d.ts",
@@ -36,15 +36,13 @@
     "prepublishOnly": "npm run build",
     "release": "bumpp --commit --no-push --tag && npm publish"
   },
-  "author": "Shimada666<649940882@qq.com>",
+  "author": "Oxrial",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Shimada666/v-code-diff/issues"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shimada666/v-code-diff.git"
+    "url": "git+https://github.com/Oxrial/v-code-diff-oxr"
   },
+  "based from": "https://github.com/Shimada666/v-code-diff.git",
   "peerDependencies": {
     "@vue/composition-api": "^1.4.9",
     "vue": "^2.6.0 || >=3.0.0"
